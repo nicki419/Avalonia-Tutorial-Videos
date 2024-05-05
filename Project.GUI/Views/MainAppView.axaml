@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:Project.GUI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Project.GUI.Views.MainAppView"
+             x:DataType="vm:MainAppViewModel">
+
+  <UserControl.Styles>
+    <Style Selector="DataGrid">
+      <Setter Property="Foreground" Value="#1d1d1d" />
+      <Setter Property="VerticalGridLinesBrush" Value="#d1d1d1" />
+      <Setter Property="HorizontalGridLinesBrush" Value="#d1d1d1" />
+      <Setter Property="Background" Value="#ffffff" />
+    </Style>
+    <Style Selector="DataGrid TextBlock">
+      <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+      <Setter Property="FontFamily" Value="Roboto Mono" />
+    </Style>
+    <Style Selector="DataGridRow">
+      <Style Selector="^:selected DataGridCell">
+        <Setter Property="Background" Value="#dd666e" />
+      </Style>
+    </Style>
+    <Style Selector="DataGridColumnHeader">
+      <Setter Property="Background" Value="#b5000c" />
+      <Setter Property="Foreground" Value="#ffffff" />
+      <Setter Property="SeparatorBrush" Value="#e4e4e4" />
+    </Style>
+    <Style Selector="DataGridColumnHeader TextBlock"> 
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="FontFamily" Value="Noto" />
+    </Style>
+  </UserControl.Styles>
+
+
+  <!-- Comment -->
+  <StackPanel>
+    <DataGrid Width="500" Height="350" 
+              ItemsSource="{Binding ItemsData}"
+              IsReadOnly="True"
+              VerticalScrollBarVisibility="Auto"
+              GridLinesVisibility="All"
+              CanUserReorderColumns="False"
+              CanUserResizeColumns="False"
+              CanUserSortColumns="False"
+              BorderThickness="1"
+              BorderBrush="#1d1d1d">
+        <DataGrid.Columns>
+          <DataGridTextColumn Width="Auto" Header="First Name" Binding="{Binding FirstName}" />
+          <DataGridTextColumn Width="Auto" Header="Last Name" Binding="{Binding LastName}" />
+          <DataGridTextColumn Width="Auto" Header="Date Of Birth" Binding="{Binding DateOfBirth, StringFormat={}{0:dd.MM.yyyy}}" />
+          <DataGridTextColumn Width="Auto" Header="Country" Binding="{Binding Country}" />
+        </DataGrid.Columns>
+      </DataGrid>
+    <Button Command="{Binding LoadData}">Load Data</Button>
+    <Button Command="{Binding $parent[Window].((vm:MainWindowViewModel)DataContext).ChangeView}">Change View</Button>
+  </StackPanel>
+</UserControl>
